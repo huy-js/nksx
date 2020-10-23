@@ -47,7 +47,7 @@ export const userLoginFetch = (email, password) => {
         localStorage.setItem("userId", decodedToken.data._id);
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(login(decodedToken.data));
-        dispatch(checkAuthTimeout(3600));
+        dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
       })
       .catch((error) => {
         dispatch(authFail(error.response.data.message));
